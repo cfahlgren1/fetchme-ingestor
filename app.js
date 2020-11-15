@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/*', indexRouter.index);
 
 // slack slash command endpoint
-app.post('/slack', slackRouter.slackHelpResponse);
+app.post('/slack', slackRouter.slackResponse);
 
 // Error handler
 app.use((err, req, res) => {
