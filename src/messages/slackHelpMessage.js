@@ -12,7 +12,8 @@ const slackHelpMessage = () => {
       Blocks.Section({ text: '> Make POST request with Data:\n> \`/fetch -d "name=text" https://www.keycdn.com\`'}),
       Blocks.Section({ text: '> Make POST request to Form:\n> \`/fetch -X POST -F "name=user" https://www.keycdn.com\`'}),
       Blocks.Section({ text: '> Set HTTP Headers:\n> \`/fetch -H "X-Header: value" https://www.keycdn.com\`'}),
-      Blocks.Section({ text: '> Set this help message:\n> \`/fetch help\`'}))
+      Blocks.Section({ text: '> Set this help message:\n> \`/fetch help\`'}),
+      Blocks.Section({ text: '> Make sure your URL is formatted correctly with `http` or `https`'}))
     .asUser()
     .buildToJSON();
 };

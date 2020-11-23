@@ -1,34 +1,26 @@
-// import minimist argument parser
-var parseArgs = require('minimist')
-
 // import slack message blocks
 const { slackResponseMessage } = require('../messages/slackResponseMessage');
 const { slackHelpMessage } = require('../messages/slackHelpMessage');
 const { slackFetchResponse } = require('../services/makeRequest');
+const { processArguments } = require('../util/processArguments');
 
 // Display response message
 exports.slackResponse = (req, res) => {
-    res.writeHead(200, { 'content-type': 'text/html' });
+    res.writeHead(200, { 'content-type': 'application/json' });
 
     // parse fields and store as JSON object
-    const slackFields = JSON.parse(JSON.stringify(req.body));
-    
-    // set variables to various fields provided by slack
-    const user_name = slackFields['user_name'].trim().replace('\n','');
-    const user_id = slackFields['user_id'].trim().replace('\n','');
-    const team_domain = slackFields['team_domain'].trim().replace('\n','');
-    const team_id = slackFields['team_id'].trim().replace('\n','');
+    const arguments = processArguments(req.body);
 
-    // split parameters into array
-    const text = slackFields['text'].trim().replace('\n','');
-    // parse args into dictionary
-    const args = parseArgs(text.split(' '));
+    // check if arguments object says we need to send help message
+    if (arguments.sendHelp) {
+        res.end(slackHelpMessage());
+    }else {
+        res.end(slackFetchResponse(arguments.args));
+    }
 
-    // send response
-    res.end(slackFetchResponse(args));
-
-    // log
-    console.log(`${user_name} (${user_id}) on team ${team_domain} (${team_id}) said /getforme!`);
+    // log to console
+    console.log(`${arguments.user_name} (${arguments.user_id}) on team ${arguments.team_domain} (${arguments.team_id}) said /fetch! ${arguments.url}`);
+    console.log(arguments);
 };
 
 // write slack help

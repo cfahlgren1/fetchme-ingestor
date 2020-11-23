@@ -7,7 +7,8 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "minimist": "^1.2.5",
-    "slack-block-builder": "^1.7.2"
+    "slack-block-builder": "^1.7.2",
+    "valid-url": "^1.0.9"
   },
   "devDependencies": {},
   "scripts": {
