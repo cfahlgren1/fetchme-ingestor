@@ -2,9 +2,12 @@ var parseArgs = require('minimist')
 var validUrl = require('valid-url');
 
 /**
- * Parse JSON Body of Request to extract Slack Fields
+ * Parse JSON Body of Request to extract Slack Fields and
+ * check if help message needs to be sent
  * @param  {JSON} body
+ * @return {Object} arguments object
  */
+
 const processArguments = (body) => {
     const slackFields = JSON.parse(JSON.stringify(body));
 
@@ -17,7 +20,10 @@ const processArguments = (body) => {
     this.team_id = slackFields['team_id'].trim().replace('\n','');
 
     this.text = slackFields['text'].trim().replace('\n','');
-    this.args = parseArgs(this.text.split(' '));
+
+    // regular expression to parse arguments into array
+    const regex = /[^\s"]+|"([^"]*)"/gi;
+    this.args = parseArgs(this.text.match(regex));
 
     // get outside parameters eg(url or help)
     const outside_params = this.args['_'];
