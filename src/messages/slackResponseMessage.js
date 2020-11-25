@@ -1,28 +1,38 @@
-const { Message, Blocks, Elements } = require("slack-block-builder");
+const { Message, Blocks } = require("slack-block-builder");
+const fetch = require("node-fetch");
+/**
+ * Send request to URL and return slack message as JSON
+ * @param  {String} url
+ * @param  {Object} options
+ * @return {JSON}
+ */
+const slackResponseMessage = (url, options) => {
+  try {
+    const text = "Test";
+    const status = "20";
+    const statusText = "Ok";
 
-const slackResponseMessage = () => {
-  return Message({ text: "Alas, my friend." })
-    .blocks(
-      Blocks.Section({
-        text: "One does not simply walk into Slack and click a button.",
-      }),
-      Blocks.Section({
-        text: "At least that's what my friend Slackomir said :crossed_swords:",
-      }),
-      Blocks.Divider(),
-      Blocks.Actions().elements(
-        Elements.Button({
-          text: "Sure One Does",
-          actionId: "gotClicked",
-        }).danger(),
-        Elements.Button({
-          text: "One Does Not",
-          actionId: "scaredyCat",
-        }).primary()
+    return Message()
+      .blocks(
+        Blocks.Section({ text: `Fetch Request 🏃‍♂️` }),
+        Blocks.Section({
+          text: `URL: \`${url}\``,
+        }),
+        Blocks.Section({
+          text: `Status: \`${status}\`\n`,
+        }),
+        Blocks.Section({
+          text: `Status Text: \`${statusText}\``,
+        }),
+        Blocks.Section({
+          text: `Response\n\`${text}\``,
+        })
       )
-    )
-    .asUser()
-    .buildToJSON();
+      .asUser()
+      .buildToJSON();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 module.exports = { slackResponseMessage };

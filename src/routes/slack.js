@@ -1,6 +1,8 @@
 // import slack message blocksconst { slackResponseMessage } = require("../messages/slackResponseMessage");
+const { json } = require("body-parser");
 const { slackHelpMessage } = require("../messages/slackHelpMessage");
-const { makeRequest } = require("../services/makeRequest");
+const { slackResponseMessage } = require("../messages/slackResponseMessage");
+const { buildOptions } = require("../services/buildOptions");
 const { processArguments } = require("../util/processArguments");
 
 // Display response message
@@ -12,9 +14,14 @@ exports.slackResponse = (req, res) => {
 
   // check if arguments object says we need to send help message
   if (arguments.sendHelp) {
+    console.log("Incorrect parameter given, supplying help message!");
     res.end(slackHelpMessage());
-  } else {
-    res.end(makeRequest(arguments.args));
+  }
+  // build and send request with user specified options
+  else {
+    const requestOptions = buildOptions(arguments.args); // get req options from args
+    const slackMessage = slackResponseMessage(arguments.url, requestOptions);
+    res.end(slackMessage);
   }
 
   // log to console
