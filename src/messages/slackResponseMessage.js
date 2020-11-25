@@ -6,11 +6,25 @@ const fetch = require("node-fetch");
  * @param  {Object} options
  * @return {JSON}
  */
-const slackResponseMessage = (url, options) => {
+const slackResponseMessage = async (url, options) => {
   try {
-    const text = "Test";
-    const status = "20";
-    const statusText = "Ok";
+    const response = await fetch(url, options);
+
+    let textResponse = await response.text();
+    let truncatedResponse = false;
+    const status = response.status;
+    const statusText = response.statusText;
+
+    if (textResponse.length >= 3000) {
+      textResponse = textResponse.slice(0, 2500);
+      truncatedResponse = true;
+    }
+
+    const footer = ((truncatedResponse) => {
+      if (truncatedResponse) {
+        return "Response was truncated. Slack does not allow messages greater than 3000";
+      }
+    })();
 
     return Message()
       .blocks(
@@ -19,13 +33,13 @@ const slackResponseMessage = (url, options) => {
           text: `URL: \`${url}\``,
         }),
         Blocks.Section({
-          text: `Status: \`${status}\`\n`,
+          text: `Status: \`${status} ${statusText}\`\n`,
         }),
         Blocks.Section({
-          text: `Status Text: \`${statusText}\``,
+          text: "Response\n---",
         }),
         Blocks.Section({
-          text: `Response\n\`${text}\``,
+          text: "```\n" + textResponse + "\n```",
         })
       )
       .asUser()

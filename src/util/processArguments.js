@@ -11,14 +11,19 @@ var validUrl = require("valid-url");
 const processArguments = (body) => {
   const slackFields = JSON.parse(JSON.stringify(body));
 
-  this.sendHelp = false;
-
   // set variables to various fields provided by slack
   this.user_name = slackFields["user_name"].trim().replace("\n", "");
   this.user_id = slackFields["user_id"].trim().replace("\n", "");
   this.team_domain = slackFields["team_domain"].trim().replace("\n", "");
   this.team_id = slackFields["team_id"].trim().replace("\n", "");
   this.text = slackFields["text"].trim().replace("\n", "");
+  this.url = "none";
+
+  // if no arguments are supplied, send help message
+  if (this.text.length === 0) {
+    this.sendHelp = true;
+    return this;
+  }
 
   // regular expression to parse arguments into array
   const regex = /[^\s"]+|"([^"]*)"/gi;
@@ -26,8 +31,6 @@ const processArguments = (body) => {
 
   // get outside parameters eg(url or help)
   const outside_params = this.args["_"];
-
-  let containsURL = false;
 
   // check for help or incorrect URL parameters
   for (argument of outside_params) {

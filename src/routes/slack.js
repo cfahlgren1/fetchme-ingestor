@@ -6,7 +6,7 @@ const { buildOptions } = require("../services/buildOptions");
 const { processArguments } = require("../util/processArguments");
 
 // Display response message
-exports.slackResponse = (req, res) => {
+exports.slackResponse = async (req, res) => {
   res.writeHead(200, { "content-type": "application/json" });
 
   // parse fields and store as JSON object
@@ -20,7 +20,10 @@ exports.slackResponse = (req, res) => {
   // build and send request with user specified options
   else {
     const requestOptions = buildOptions(arguments.args); // get req options from args
-    const slackMessage = slackResponseMessage(arguments.url, requestOptions);
+    const slackMessage = await slackResponseMessage(
+      arguments.url,
+      requestOptions
+    );
     res.end(slackMessage);
   }
 
@@ -35,5 +38,5 @@ exports.slackResponse = (req, res) => {
 exports.slackHelpResponse = (req, res) => {
   res.writeHead(200, { "content-type": "application/json" });
   res.end(slackHelpMessage());
-  s.end(slackHelpMessage());
+  res.end(slackHelpMessage());
 };
