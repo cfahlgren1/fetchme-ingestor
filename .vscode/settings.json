@@ -1,17 +1,17 @@
 {
-    "serverlessConsole.services": [
+  "serverlessConsole.services": [
+    {
+      "type": "cloudformation",
+      "title": "Serverless Logs",
+      "timeOffsetInMs": 0,
+      "awsProfile": "default",
+      "stacks": [
         {
-            "type": "cloudformation",
-            "title": "Serverless Logs",
-            "timeOffsetInMs": 0,
-            "awsProfile": "default",
-            "stacks": [
-                {
-                    "region": "us-east-1",
-                    "stackName": "ServerlessFileUploader-Stack",
-                    "stage": "dev"
-                }
-            ]
+          "region": "us-east-1",
+          "stackName": "ServerlessFileUploader-Stack",
+          "stage": "dev"
         }
-    ]
+      ]
+    }
+  ]
 }
