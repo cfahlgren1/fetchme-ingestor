@@ -1,5 +1,5 @@
-var parseArgs = require("minimist");
-var validUrl = require("valid-url");
+const parseArgs = require("minimist");
+const validUrl = require("valid-url");
 
 /**
  * Parse JSON Body of Request to extract Slack Fields and
