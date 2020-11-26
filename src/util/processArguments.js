@@ -18,6 +18,7 @@ const processArguments = (body) => {
   this.team_id = slackFields["team_id"].trim().replace("\n", "");
   this.text = slackFields["text"].trim().replace("\n", "");
   this.url = "none";
+  let containsURL = true;
 
   // if no arguments are supplied, send help message
   if (this.text.length === 0) {

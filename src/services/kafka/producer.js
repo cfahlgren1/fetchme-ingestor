@@ -2,7 +2,7 @@ const Kafka = require("node-rdkafka");
 // read the KAFKA Brokers and KAFKA_TOPIC values from the local file config.js
 const externalConfig = require("./config");
 
-const produceMessage = (message) => {
+const kafkaProduce = (message) => {
   // construct a Kafka Configuration object understood by the node-rdkafka library
   // merge the configuration as defined in config.js with additional properties defined here
   const kafkaConf = {
@@ -40,4 +40,4 @@ const produceMessage = (message) => {
   }
 };
 
-module.exports = { produceMessage };
+module.exports = { kafkaProduce };
