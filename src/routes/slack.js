@@ -1,10 +1,10 @@
 const { buildOptions } = require("../services/buildOptions");
 const { processArguments } = require("../util/processArguments");
 const { slackHelpMessage } = require("../messages/slackHelpMessage");
-const { kafkaProduce } = require("../services/kafka/producer")
+const kafka = require("../services/kafka/producer");
 
 // Display response message
-exports.slackResponse = (req, res) => {
+exports.slackResponse = async (req, res) => {
   res.writeHead(200, { "content-type": "application/json" });
 
   // parse fields and store as JSON object
@@ -18,15 +18,13 @@ exports.slackResponse = (req, res) => {
   // build and send request with user specified options
   else {
     const requestOptions = buildOptions(arguments.args); // get req options from args
-    const message = {args: arguments, options: requestOptions}; // message to send to kafka
+    const message = { args: arguments, options: requestOptions }; // message to send to kafka
     try {
-      kafkaProduce(message); // send message to kafka cluster
-      console.log('Sent Kafka Message!');
-    }
-    catch(error) {
+      await kafka.sendMessage(message); // send message to kafka cluster
+    } catch (error) {
       console.log(error.message);
     }
-    res.end(slackHelpMessage());
+    res.end(JSON.stringify(message));
   }
 
   // log to console
