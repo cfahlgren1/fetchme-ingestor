@@ -36,4 +36,8 @@ const slackHelpMessage = () => {
     .buildToJSON();
 };
 
-module.exports = { slackHelpMessage };
+const incorrectParam  = (param) => {
+  return;
+}
+
+module.exports = { slackHelpMessage, incorrectParam };
