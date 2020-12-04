@@ -12,10 +12,9 @@ A Slack App for developers to make API requests using a slash command 💻
     $ cd fetchme
     $ npm install
 
-## Usage
-
-![](https://i.ibb.co/9gJZsGQ/slackhelp.jpg)
-
 ## Deploy
+    $ serverless deploy
 
-`serverless deploy`
+## Architecture
+![](https://i.ibb.co/c889nfF/lambda-architecture.png)
+
