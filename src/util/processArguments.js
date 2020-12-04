@@ -7,7 +7,6 @@ const validUrl = require("valid-url");
  * @param  {JSON} body
  * @return {Object} arguments object
  */
-
 const processArguments = (body) => {
   const slackFields = JSON.parse(JSON.stringify(body));
 
@@ -17,8 +16,8 @@ const processArguments = (body) => {
   this.team_domain = slackFields["team_domain"].trim().replace("\n", "");
   this.team_id = slackFields["team_id"].trim().replace("\n", "");
   this.text = slackFields["text"].trim().replace("\n", "");
-  this.url = "none";
-  let containsURL = true;
+  this.url = "None";
+  this.sendHelp = false;
 
   // if no arguments are supplied, send help message
   if (this.text.length === 0) {
@@ -41,15 +40,14 @@ const processArguments = (body) => {
     }
     // correct url was passed
     else if (validUrl.isWebUri(argument)) {
-      containsURL = true;
       this.url = argument;
     }
   }
-
   // if it doesn't contain a url, we want to send a help message
-  if (!containsURL) {
+  if (this.url === "None") {
     this.sendHelp = true;
   }
+
   return this;
 };
 
