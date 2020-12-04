@@ -1,4 +1,4 @@
-const { buildOptions } = require("../services/buildOptions");
+const { buildOptions } = require("../util/buildOptions");
 const { processArguments } = require("../util/processArguments");
 const { slackHelpMessage } = require("../messages/slackHelpMessage");
 const kafka = require("../services/kafka/producer");
@@ -22,7 +22,7 @@ exports.slackResponse = async (req, res) => {
     try {
       await kafka.sendMessage(message); // send message to kafka cluster
     } catch (error) {
-      console.log(error.message);
+      console.log('Error producing Kafka Message',error.message);
     }
     res.end(JSON.stringify(message));
   }
