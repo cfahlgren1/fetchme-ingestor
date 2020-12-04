@@ -6,28 +6,27 @@ const kafkaConfig = require("./config");
  * @param  {Object} message
  */
 const sendMessage = async (message) => {
-  try{
-  // initialize kafka with configuration
-  const kafka = new Kafka(kafkaConfig.config);
-  const producer = kafka.producer();
-  const kafkaMessage = JSON.stringify(message);
+  try {
+    // initialize kafka with configuration
+    const kafka = new Kafka(kafkaConfig.config);
+    const producer = kafka.producer();
+    const kafkaMessage = JSON.stringify(message);
 
-  await producer.connect();
-  console.log("Kafka producer connected!");
+    await producer.connect();
+    console.log("Kafka producer connected!");
 
-  // send jsonmessage to kafka
-  await producer.send({
-    topic: kafkaConfig.topic,
-    messages: [{ value: kafkaMessage }],
-  });
+    // send jsonmessage to kafka
+    await producer.send({
+      topic: kafkaConfig.topic,
+      messages: [{ value: kafkaMessage }],
+    });
 
-  console.log(`Kafka ${kafkaMessage} sent!`);
-  await producer.disconnect();
-  console.log("Kafka producer disconnected!");
-  }
-  catch(error){
+    console.log(`Kafka ${kafkaMessage} sent!`);
+    await producer.disconnect();
+    console.log("Kafka producer disconnected!");
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
-module.exports = {sendMessage}
+module.exports = { sendMessage };

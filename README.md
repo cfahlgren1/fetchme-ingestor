@@ -13,8 +13,9 @@ A Slack App for developers to make API requests using a slash command 💻
     $ npm install
 
 ## Deploy
+
     $ serverless deploy
 
 ## Architecture
-![](https://i.ibb.co/c889nfF/lambda-architecture.png)
 
+![](https://i.ibb.co/c889nfF/lambda-architecture.png)
