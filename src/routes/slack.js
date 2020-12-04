@@ -24,7 +24,7 @@ exports.slackResponse = async (req, res) => {
     try {
       await kafka.sendMessage(message); // send message to kafka cluster
     } catch (error) {
-      res.end("Hi, we had an internal issue! Please try again later.");
+      res.end("Hi, we encountered an internal issue! Please try again later.");
       console.log("Error producing Kafka Message", error.message);
     }
     res.end(slackSentMessage());
