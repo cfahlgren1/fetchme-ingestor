@@ -16,6 +16,9 @@ const processArguments = (body) => {
   this.team_domain = slackFields["team_domain"].trim().replace("\n", "");
   this.team_id = slackFields["team_id"].trim().replace("\n", "");
   this.text = slackFields["text"].trim().replace("\n", "");
+  this.channel_id = slackFields["channel_id"].trim().replace("\n", "");
+  this.channel_name = slackFields["channel_name"].trim().replace("\n", "");
+  this.response_url = slackFields["response_url"].trim().replace("\n", "");
   this.url = "None";
   this.sendHelp = false;
 
