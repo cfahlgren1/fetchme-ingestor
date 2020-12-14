@@ -14,6 +14,11 @@ const buildOptions = (args) => {
     options.headers = args.H;
   }
 
+  // specify request type
+  if (args.X) {
+    options.method = args.X;
+  }
+
   return options;
 };
 
