@@ -11,17 +11,21 @@ const buildOptions = (args) => {
 
   // set header options if user specified options in args
   if (args.H) {
-    let altHeaders = args.H;
-    altHeaders = altHeaders.replace('"', '').replace('"', '');
-    altHeaders = altHeaders.split(':');
-    options.headers[altHeaders[0]] = altHeaders[1].trim();
+    args.H.forEach((arg) => {
+      let altHeaders = arg.replace('"', '').replace('"', '');
+      altHeaders = altHeaders.split(':');
+      options.headers[altHeaders[0]] = altHeaders[1].trim();
+    });
   }
 
   // specify request type
   if (args.X) {
-    options.method = args.X;
+    args.X.forEach((arg) => {
+      options.method = arg;
+    });
   }
 
+  // specify
   return options;
 };
 
