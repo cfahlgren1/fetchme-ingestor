@@ -34,5 +34,4 @@ exports.slackResponse = async (req, res) => {
   console.log(
     `${arguments.user_name} (${arguments.user_id}) on team ${arguments.team_domain} (${arguments.team_id}) said /fetch! ${arguments.url}`
   );
-  console.log(arguments);
 };

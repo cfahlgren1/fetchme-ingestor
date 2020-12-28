@@ -11,7 +11,10 @@ const buildOptions = (args) => {
 
   // set header options if user specified options in args
   if (args.H) {
-    options.headers = args.H;
+    let altHeaders = args.H;
+    altHeaders = altHeaders.replace('"', '').replace('"', '');
+    altHeaders = altHeaders.split(':');
+    options.headers[altHeaders[0]] = altHeaders[1].trim();
   }
 
   // specify request type
