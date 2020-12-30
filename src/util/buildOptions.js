@@ -1,4 +1,5 @@
 const validator = require("./argumentValidator");
+const qs = require("querystring");
 
 /**
  *  Clean argument from quotes and extra white space
@@ -62,16 +63,20 @@ const buildOptions = (args) => {
     }
 
     // specify form data
-    if (args.F) {
-      if (Array.isArray(args.F)) {
-        args.F.forEach((arg) => {
+    if (args.d) {
+      options.method = "POST";
+      if (Array.isArray(args.d)) {
+        args.d.forEach((arg) => {
           arg = cleanArgument(arg);
-          options.body = arg;
+          const argObj = qs.parse(arg);
+          options.body = Object.assign(options.body, argObj);
         });
       } else {
-        options.body = args.F;
+        const argObj = qs.parse(cleanArgument(args.d));
+        options.body = argObj;
       }
     }
+    console.log(options);
     return options;
   } catch (err) {
     console.log(err.message);
