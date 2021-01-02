@@ -36,7 +36,7 @@ const processArguments = (body) => {
   const outside_params = this.args["_"];
 
   // check for help or incorrect URL parameters
-  for (argument of outside_params) {
+  outside_params.forEach((argument) => {
     // if help argument is passed, return help slack message
     if (argument === "help") {
       this.sendHelp = true;
@@ -45,7 +45,8 @@ const processArguments = (body) => {
     else if (validUrl.isWebUri(argument)) {
       this.url = argument;
     }
-  }
+  });
+
   // if it doesn't contain a url, we want to send a help message
   if (this.url === "None") {
     this.sendHelp = true;
