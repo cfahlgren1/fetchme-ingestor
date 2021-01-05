@@ -14,6 +14,9 @@ const sendMessage = async (message) => {
 
     await producer.connect();
     console.log("Kafka producer connected!");
+    console.log(process.env.KAFKA_USERNAME);
+
+    console.log(kafkaConfig.topic);
 
     // send jsonmessage to kafka
     await producer.send({

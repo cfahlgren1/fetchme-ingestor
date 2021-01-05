@@ -1,0 +1,13 @@
+app: express-starter
+component: express
+name: express-starter
+
+inputs:
+  src: ./
+  env: 
+    KAFKA_TOPIC: 
+    KAFKA_BROKER_1: 
+    KAFKA_BROKER_2: 
+    KAFKA_BROKER_3: 
+    KAFKA_USERNAME: 
+    KAFKA_PASSWORD: 
