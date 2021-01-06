@@ -11,3 +11,4 @@ inputs:
     KAFKA_BROKER_3: 
     KAFKA_USERNAME: 
     KAFKA_PASSWORD: 
+    SENTRY_DSN: 
