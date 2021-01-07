@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const slackRouter = require("./src/routes/slack"); // import routes for slack slash command
 const indexRouter = require("./src/routes/index"); // import routes for index
-const Sentry = require('@sentry/node');
+const Sentry = require("@sentry/node");
 const Tracing = require("@sentry/tracing");
 
 const app = express();
