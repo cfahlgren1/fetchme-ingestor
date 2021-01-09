@@ -20,10 +20,6 @@ const slackHelpMessage = () => {
       }),
       Blocks.Section({
         text:
-          '> Make POST request to Form:\n> `/fetch -X POST -F "name=user" https://www.keycdn.com`',
-      }),
-      Blocks.Section({
-        text:
           '> Set HTTP Headers:\n> `/fetch -H "X-Header: value" https://www.keycdn.com`',
       }),
       Blocks.Section({ text: "> Set this help message:\n> `/fetch help`" }),
